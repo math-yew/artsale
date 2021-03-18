@@ -1,0 +1,120 @@
+@font-face {
+  font-family: Shadows;
+  src: url('./fonts/shadowsintolight/ShadowsIntoLight.ttf');
+}
+
+@font-face {
+  font-family: Roboto;
+  src: url('./fonts/roboto/Roboto-Regular.ttf');
+}
+
+@font-face {
+  font-family: Roboto-Bold;
+  src: url('./fonts/roboto/Roboto-Bold.ttf');
+}
+
+body{
+  font-family: "Roboto", Times, serif;
+}
+
+.white {
+  color: white;
+}
+
+.section {
+  padding-right:0;
+  padding-left:0;
+  margin-right:auto;
+  margin-left:auto;
+}
+
+.pad {
+  padding: 15vw 5vw;
+}
+
+.eighty {
+  height: 80vh;
+}
+
+.full-width {
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+.gray {
+  background-color: #ddd;
+}
+
+.blue {
+  background-color: #bbf;
+}
+
+.red {
+  background-color: #fbb;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.rectangle {
+  border: solid thick #bbb;
+  border-radius: 10px;
+  padding: 5vw;
+}
+
+.squeeze {
+  padding:5vw 15vw;
+}
+
+.mountain {
+  background-image: url("./../images/mountain-range.jpg");
+}
+
+.picture {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.path {
+  background-image: url('https://images.pexels.com/photos/2779419/pexels-photo-2779419.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260');
+}
+
+.fade-path {
+  position: relative;
+  background: none;
+}
+
+.fade-path::before {
+  content: "";
+  background-image: url('https://images.pexels.com/photos/2779419/pexels-photo-2779419.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260');
+  opacity: .3;
+  position: absolute;
+}
+
+.fixed{
+  background-attachment: fixed;
+}
+
+.animate {
+  /* transform: translateX(50%); */
+  opacity: 0;
+  color: white;
+}
+
+.right{
+  transform: translateX(100%);
+}
+
+.left{
+  transform: translateX(-100%);
+}
+
+.animated {
+  transition: 2s;
+}

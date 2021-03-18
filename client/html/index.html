@@ -1,52 +1,113 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <title>Stripe Checkout Sample</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="generator" content="Hugo 0.79.0">
+    <title class="changeable">Small Site</title>
 
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="css/normalize.css" />
     <link rel="stylesheet" href="css/global.css" />
     <script src="https://js.stripe.com/v3/"></script>
     <script src="./index.js" defer></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/carousel/">
+    <link rel="stylesheet" href="./css/style.css">
   </head>
-
   <body>
-    <div class="sr-root">
-      <div class="sr-main">
-        <header class="sr-header">
-          <div class="sr-header__logo"></div>
-        </header>
 
-        <section class="container">
-          <div>
-            <h1>Single photo</h1>
-            <h4>Purchase a Pasha original photo</h4>
+    <main>
+      <div class="container-fluid full-width">
 
-            <div class="pasha-image">
-              <img
-                src="https://picsum.photos/280/320?random=4"
-                width="140"
-                height="160"
-              />
+        <div class="section row" id="first">
+          <div class="col-sm-6 center pad">
+            <h1>Donate to help us have a baby through IVF</h1>
+            <h2>The costs of IVF(invitro fertilization) suck</h2>
+          </div>
+          <div class="col-sm-6 center pad path picture"></div>
+        </div>
+
+
+        <div class="section row center" style="padding: 40px">
+          <div class="col-8 center white">
+            <div class="input-group">
+              <span class="input-group-text">DONATE</span>
+              <input type="text" aria-label="Donate" class="form-control" id="donation">
             </div>
           </div>
+        </div>
 
-          <div class="quantity-setter">
-            <button class="increment-btn" id="subtract" disabled>-</button>
-            <input type="number" id="quantity-input" min="1" value="1" />
-            <button class="increment-btn" id="add">+</button>
+        <div class="section row squeeze" id="pictures"></div>
+
+        <div class="section row center" style="padding-bottom:100vh">
+          <div class="col-12 center white">
+            <div id="error-message"></div>
+            <button id="submit">Buy</button>
           </div>
+        </div>
 
-          <p class="sr-legal-text">Number of copies (max 10)</p>
 
-          <button id="submit">Buy</button>
-        </section>
+        <div class="section row" id="third">
+          <div class="col-sm-4 gray center pad">
+          </div>
+          <div class="col-sm-4 blue center pad">
+            <h1>THIS IS THE TITLE</h1>
+            <h2>THIS IS THE SUBTITLE</h2>
+          </div>
+          <div class="col-sm-4 red center pad">
+            <div class="title">
+              <h1>THIS IS THE TITLE</h1>
+              <h2>THIS IS THE SUBTITLE</h2>
+            </div>
+          </div>
+        </div>
 
-        <div id="error-message"></div>
+        <div class="section row center gray path fixed pad" id="second">
+          <div class="col-12 center">
+            <h1>THIS IS THE TITLE</h1>
+            <h2>THIS IS THE SUBTITLE</h2>
+          </div>
+        </div>
+
+
+        <div class="section row" style="padding:0vw 10vw" id="fourth">
+          <div class="col-sm-4 gray center pad">
+            <h1 from-left">Hi THIS IS THE TITLE</h1>
+            <h2>THIS IS THE SUBTITLE</h2>
+            <p class="animate" id="p1">Hello there.  May this appear.</p>
+          </div>
+          <div class="col-sm-4 blue center pad">
+            <h1>THIS IS THE TITLE</h1>
+            <h2>THIS IS THE SUBTITLE</h2>
+          </div>
+          <div class="col-sm-4 red center pad">
+            <h1>THIS IS THE TITLE</h1>
+            <h2>THIS IS THE SUBTITLE</h2>
+            <p class="animate" id="p2">Hello there.  May this appear.</p>
+          </div>
+        </div>
+
+
+        <div class="section row center gray fade-path fixed eighty" id="sixth">
+          <div class="col-12 center">
+            <h1>Map
+            </h1>
+            <a href="https://developers.google.com/maps/documentation/javascript/adding-a-google-map#maps_add_map-html" target="#">Instructions</a>
+            <div id="map"></div>
+          </div>
+        </div>
+
       </div>
-    </div>
+
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+
   </body>
 </html>

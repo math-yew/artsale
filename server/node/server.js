@@ -1,11 +1,26 @@
 const express = require('express');
 const app = express();
 const { resolve } = require('path');
-// Copy the .env.example in the root into a .env file in this folder
 require('dotenv').config({ path: './.env' });
 
-// Ensure environment variables are set.
-checkEnv();
+
+products = [
+  {
+    name: 'Donuts',
+    description: '8x10 print of the donuts artwork',
+    images: ['https://live.staticflickr.com/8833/18321553171_cebf177a96_b.jpg']
+  },
+  {
+    name: 'City',
+    description: '8x10 print of the city artwork',
+    images: ['https://live.staticflickr.com/8392/8602980365_75fed56177_b.jpg']
+  },
+  {
+    name: 'Pumpkins',
+    description: '8x10 print of the pumpkins artwork',
+    images: ['https://live.staticflickr.com/8089/8476612001_60b11a5c0a_b.jpg']
+  }
+];
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
@@ -29,17 +44,10 @@ app.get('/', (req, res) => {
 
 app.get('/config', async (req, res) => {
   console.log("CONFIG **************************************************");
-  const price = await stripe.prices.retrieve(process.env.PRICE);
-
   res.send({
     publicKey: process.env.STRIPE_PUBLISHABLE_KEY,
-    unitAmount: price.unit_amount,
-    currency: price.currency,
+    products: products
   });
-
-  console.log("publicKey: " + process.env.STRIPE_PUBLISHABLE_KEY);
-  console.log("unitAmount: " + price.unit_amount);
-  console.log("currency: " + price.currency);
 });
 
 // Fetch the Checkout Session to display the JSON result on the success page
@@ -51,35 +59,29 @@ app.get('/checkout-session', async (req, res) => {
 
 app.post('/create-checkout-session', async (req, res) => {
   const domainURL = process.env.DOMAIN;
-
-  const { quantity, locale } = req.body;
-
-  // The list of supported payment method types. We fetch this from the
-  // environment variables in this sample. In practice, users often hard code a
-  // list of strings for the payment method types they plan to support.
+  const { locale, amount, productId } = req.body;
   const pmTypes = (process.env.PAYMENT_METHOD_TYPES || 'card').split(',').map((m) => m.trim());
 
-
-  // console.log("DOMAINURL: " + domainURL);
-  // Create new Checkout Session for the order
-  // Other optional params include:
-  // [billing_address_collection] - to display billing address details on the page
-  // [customer] - if you have an existing Stripe Customer ID
-  // [customer_email] - lets you prefill the email input in the Checkout page
-  // For full details see https://stripe.com/docs/api/checkout/sessions/create
   const session = await stripe.checkout.sessions.create({
     payment_method_types: pmTypes,
     mode: 'payment',
     locale: locale,
     line_items: [
       {
-        price: process.env.PRICE,
-        quantity: quantity
-      },
+        price_data: {
+          currency: 'usd',
+          unit_amount: amount,
+          product_data: {...products[productId]}
+        },
+        quantity: 1,
+      }
     ],
+    shipping_address_collection: {
+      allowed_countries: ['US', 'CA'],
+    },
     // ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
     success_url: `${domainURL}/success.html?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${domainURL}/canceled.html`,
+    cancel_url: `${domainURL}/canceled.html`
   });
 
   res.send({
@@ -125,12 +127,3 @@ app.post('/webhook', async (req, res) => {
 });
 
 app.listen(4242, () => console.log(`Node server listening on port ${4242}!`));
-
-
-function checkEnv() {
-  const price = process.env.PRICE;
-  if(price === "price_12345" || !price) {
-    console.log("You must set a Price ID in the environment variables. Please see the README.");
-    process.exit(0);
-  }
-}
