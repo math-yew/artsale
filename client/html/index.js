@@ -1,4 +1,5 @@
 var productId;
+var donation;
 
 // Fetch your Stripe publishable key to initialize Stripe.js
 // In practice, you might just hard code the publishable API
@@ -12,6 +13,29 @@ fetch('/config')
     window.stripe = Stripe(config.publicKey);
     populate();
   });
+
+$("donation").blur(()=>console.log("asdf"));
+
+$(document).ready(function() {
+  let donValue = $("#donation");
+   donValue.focusout(()=>{
+     let amount = $("#donation").val()*1;
+     if(!isNaN(amount)){
+       let number = amount.toFixed(2);
+       $("#donation").val(number);
+       donation = number;
+     }
+     console.log("amount: " + amount);
+   });
+  donValue.keyup(()=>{
+    var value = donValue.val().replace(/[^\d\.]/g,"");
+    value = value.replace(/\./,"mm");
+    let valueArr = value.split("mm");
+    let newValue = valueArr.map((e)=>e.replace(".","")).join(".");
+    donValue.val(newValue);
+  });
+});
+// $("#donation").addEventListener("blur",()=>console.log("tater tots"));
 
 // When the form is submitted...
 var submitBtn = document.querySelector('#submit');
@@ -100,9 +124,9 @@ addBtn.addEventListener('click', updateQuantity);
 subtractBtn.addEventListener('click', updateQuantity);
 
 function selected(e,index){
-  console.log("element id: " + e.id);
-  console.log("index: " + index);
   productId = index;
+  $(".product-card").css("background-color", "#fff");
+  $("#"+e.id).css("background-color", "#0f0");
 }
 
 function populate(){
@@ -115,20 +139,13 @@ function populate(){
     let image = products[i].images[0];
     let index = i;
     console.log("image: " + image);
-    var picture = `<div class="col-sm-4 center" onclick="selected(this,${index})" id="product_${index}">
-      <div class="center">
-        <section class="container">
-        <div>
-          <h1>${name}</h1>
-          <h4>${description}</h4>
-          <div class="pasha-image">
-            <img src="${image}" width="140" height="160"/>
-          </div>
-        </div>
-      </section>
-    </div>
-    </div>
-    `;
+    var picture = `<div class="col-sm-4 center product-card container" onclick="selected(this,${index})" id="product_${index}">
+      <h1>${name}</h1>
+      <h4>${description}</h4>
+      <div class="pasha-image">
+        <img src="${image}" width="140" height="160"/>
+      </div>
+    </div>`;
     $("#pictures").append(picture);
   }
 }
