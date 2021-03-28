@@ -1,9 +1,6 @@
 var productId;
 var donation;
 
-// Fetch your Stripe publishable key to initialize Stripe.js
-// In practice, you might just hard code the publishable API
-// key here.
 fetch('/config')
   .then(function (result) {
     return result.json();
@@ -19,25 +16,46 @@ $("donation").blur(()=>console.log("asdf"));
 $(document).ready(function() {
   let donValue = $("#donation");
    donValue.focusout(()=>{
-     let amount = $("#donation").val()*1;
+     let value = formatCurrency();
+     let amount = value*1;
      if(!isNaN(amount)){
        let number = amount.toFixed(2);
        $("#donation").val(number);
        donation = number;
-     }
+      }
      console.log("amount: " + amount);
    });
   donValue.keyup(()=>{
+    let valueStr = formatCurrency()+"";
+    valueReverse = valueStr.split("").reverse();
+    let tempArr = [];
+    let count = 0;
+    for(var i=0; i<valueReverse.length; i++){
+      let char = valueReverse[i];
+      count++;
+      if(char == "."){
+        count = 0;
+        if (i>2){
+          tempArr = [valueReverse[i-2],valueReverse[i-1]];
+        }
+      }
+      if(count > 3 && (i < valueReverse.length)){
+        tempArr.push(",");
+        count = 1;
+      }
+      tempArr.push(char);
+    }
+    let newValue = tempArr.reverse().join("");
+    donValue.val(newValue);
+  });
+  function formatCurrency() {
     var value = donValue.val().replace(/[^\d\.]/g,"");
     value = value.replace(/\./,"mm");
     let valueArr = value.split("mm");
-    let newValue = valueArr.map((e)=>e.replace(".","")).join(".");
-    donValue.val(newValue);
-  });
+    return valueArr.map((e)=>e.replace(".","")).join(".");
+  }
 });
-// $("#donation").addEventListener("blur",()=>console.log("tater tots"));
 
-// When the form is submitted...
 var submitBtn = document.querySelector('#submit');
 submitBtn.addEventListener('click', function (evt) {
   var donation = document.getElementById('donation').value;
@@ -58,13 +76,10 @@ submitBtn.addEventListener('click', function (evt) {
   }).then(function (result) {
     return result.json();
   }).then(function (data) {
-    // Redirect to Checkout. with the ID of the
-    // CheckoutSession created on the server.
     stripe.redirectToCheckout({
       sessionId: data.sessionId,
     })
     .then(function(result) {
-      // If redirection fails, display an error to the customer.
       if (result.error) {
         var displayError = document.getElementById('error-message');
         displayError.textContent = result.error.message;
@@ -73,79 +88,40 @@ submitBtn.addEventListener('click', function (evt) {
   });
 });
 
-// The max and min number of photos a customer can purchase
-var MIN_PHOTOS = 0;
-var MAX_PHOTOS = 1000;
-
-var quantityInput = document.getElementById('quantity-input');
-quantityInput.addEventListener('change', function (e) {
-  // Ensure customers only buy between 1 and 10 photos
-  if (quantityInput.value < MIN_PHOTOS) {
-    quantityInput.value = MIN_PHOTOS;
-  }
-  if (quantityInput.value > MAX_PHOTOS) {
-    quantityInput.value = MAX_PHOTOS;
-  }
-});
-
-/* Method for changing the product quantity when a customer clicks the increment / decrement buttons */
-var addBtn = document.getElementById("add");
-var subtractBtn = document.getElementById("subtract");
-var updateQuantity = function (evt) {
-  if (evt && evt.type === 'keypress' && evt.keyCode !== 13) {
-    return;
-  }
-  var delta = evt && evt.target.id === 'add' && 1 || -1;
-
-  addBtn.disabled = false;
-  subtractBtn.disabled = false;
-
-  // Update number input with new value.
-  quantityInput.value = parseInt(quantityInput.value) + delta;
-
-  // Disable the button if the customers hits the max or min
-  if (quantityInput.value == MIN_PHOTOS) {
-    subtractBtn.disabled = true;
-  }
-  if (quantityInput.value == MAX_PHOTOS) {
-    addBtn.disabled = true;
-  }
-
-  var amount = config.unitAmount/100;
- var total = (quantityInput.value * amount).toFixed(2);
-
- console.log("total: " + total);
- console.log("submit: " + document.getElementById('submit').innerHTML);
- document.getElementById('submit').innerHTML = "Buy for $" + total;
-
-};
-
-addBtn.addEventListener('click', updateQuantity);
-subtractBtn.addEventListener('click', updateQuantity);
-
 function selected(e,index){
   productId = index;
-  $(".product-card").css("background-color", "#fff");
-  $("#"+e.id).css("background-color", "#0f0");
+  $(".product-card").css({"background-color":"#fff","border":"thin solid #ccc"});
+  $("#"+e.id).css({"background-color":"#efe","border":"thick solid #0f0"});
+  let buttonName = (index == 3) ? "Donate" : "Buy";
+  $("#submit").html(buttonName);
 }
 
 function populate(){
   console.log("populate");
   var test = "potato";
   let products = config.products;
-  for (var i = 0; i < products.length; i++) {
+  for (var i = 0; i < products.length - 1; i++) {
     let name = products[i].name;
     let description = products[i].description;
     let image = products[i].images[0];
     let index = i;
     console.log("image: " + image);
-    var picture = `<div class="col-sm-4 center product-card container" onclick="selected(this,${index})" id="product_${index}">
-      <h1>${name}</h1>
-      <h4>${description}</h4>
-      <div class="pasha-image">
-        <img src="${image}" width="140" height="160"/>
+    var picture = `<div class="col-sm-4">
+      <div class="center product-card container" onclick="selected(this,${index})" id="product_${index}">
+        <h1>${name}</h1>
+        <h4>${description}</h4>
+        <div class="pasha-image">
+          <img src="${image}" width="140" height="160"/>
+        </div>
       </div>
     </div>`;
     $("#pictures").append(picture);
   }
+  var noPic = `<div class="col-sm-12">
+    <div class="center product-card container" onclick="selected(this,3)" style="padding:5px" id="product_3">
+      <h1>Donation</h1>
+      <h4>A donation without buying a picture</h4>
+    </div>
+  </div>`;
+  $("#noPic").append(noPic);
 }

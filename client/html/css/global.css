@@ -483,7 +483,7 @@ pre {
 }
 
 .container:first-of-type {
-  margin-right: 20px;
+  /* margin-right: 20px; */
 }
 
 .quantity-setter {

@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Stripe Checkout Sample</title>
+    <title>Thankyou!</title>
 
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="css/normalize.css" />
@@ -13,6 +13,8 @@
   </head>
 
   <body>
+    <div id="fb-root"></div>
+      <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v10.0" nonce="tzRbA0cN"></script>
     <div class="sr-root">
       <div class="sr-main">
         <header class="sr-header">
@@ -20,10 +22,16 @@
         </header>
 
         <div class="sr-payment-summary completed-view">
-          <h1>Your payment succeeded</h1>
-          <h4>
-            View CheckoutSession response:
-          </h4>
+          <h1 id="thankyou">THANKYOU!</h1>
+          <h2>
+            It truly means a lot to us!
+          </h2>
+        </div>
+        <div class="sr-payment-summary completed-view">
+          <h2>
+            Please consider letting your friend know about our fundraiser by sharing it on social media:
+          </h2>
+          <div class="fb-share-button" data-href="https://www.matthewmecham.com/" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.matthewmecham.com%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
         </div>
         <div class="sr-section completed-view">
           <div class="sr-callout">

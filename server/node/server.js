@@ -4,21 +4,25 @@ const { resolve } = require('path');
 require('dotenv').config({ path: './.env' });
 
 
-products = [
+let products = [
   {
     name: 'Donuts',
-    description: '8x10 print of the donuts artwork',
+    description: '8x10 print',
     images: ['https://live.staticflickr.com/8833/18321553171_cebf177a96_b.jpg']
   },
   {
     name: 'City',
-    description: '8x10 print of the city artwork',
+    description: '8x10 print',
     images: ['https://live.staticflickr.com/8392/8602980365_75fed56177_b.jpg']
   },
   {
     name: 'Pumpkins',
-    description: '8x10 print of the pumpkins artwork',
+    description: '8x10 print',
     images: ['https://live.staticflickr.com/8089/8476612001_60b11a5c0a_b.jpg']
+  },
+  {
+    name: 'Donation',
+    description: 'A donation without buying a picture'
   }
 ];
 
@@ -62,7 +66,7 @@ app.post('/create-checkout-session', async (req, res) => {
   const { locale, amount, productId } = req.body;
   const pmTypes = (process.env.PAYMENT_METHOD_TYPES || 'card').split(',').map((m) => m.trim());
 
-  const session = await stripe.checkout.sessions.create({
+  let sessionData = {
     payment_method_types: pmTypes,
     mode: 'payment',
     locale: locale,
@@ -76,13 +80,14 @@ app.post('/create-checkout-session', async (req, res) => {
         quantity: 1,
       }
     ],
-    shipping_address_collection: {
-      allowed_countries: ['US', 'CA'],
-    },
     // ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
     success_url: `${domainURL}/success.html?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${domainURL}/canceled.html`
-  });
+  }
+  if(productId != products.length-1){
+    sessionData.shipping_address_collection = {allowed_countries: ['US', 'CA']};
+  }
+  const session = await stripe.checkout.sessions.create(sessionData);
 
   res.send({
     sessionId: session.id,
