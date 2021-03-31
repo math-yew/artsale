@@ -3,11 +3,11 @@
   --gray-offset: rgba(0, 0, 0, 0.03);
   --gray-border: rgba(0, 0, 0, 0.15);
   --gray-light: rgba(0, 0, 0, 0.4);
-  --gray-mid: rgba(0, 0, 0, 0.7);
+  --gray-mid: rgba(45, 45, 45, 0.7);
   --gray-dark: rgba(0, 0, 0, 0.9);
   --body-color: var(--gray-mid);
   --headline-color: var(--gray-dark);
-  --accent-color: #0066f0;
+  --accent-color: #2e95ff;
   --body-font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   --radius: 6px;
   --logo-image: url("https://storage.googleapis.com/stripe-sample-images/KAVHOLM.svg");
@@ -354,7 +354,7 @@ pre {
 
 /* Pasha styles – Brand-overrides, can split these out */
 :root {
-  --accent-color: #ed5f74;
+  --accent-color: #2e95ff;
   --headline-color: var(--accent-color);
   --logo-image: url("https://storage.googleapis.com/stripe-sample-images/logo-pasha.svg");
 }

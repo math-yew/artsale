@@ -21,6 +21,10 @@ body{
   color: white;
 }
 
+.white-back {
+  background-color: white;
+}
+
 .section {
   padding-right:0;
   padding-left:0;
@@ -76,7 +80,7 @@ body{
 }
 
 .picture {
-  background-position: center;
+  background-position: left;
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -86,7 +90,8 @@ body{
 }
 
 .embryo {
-  background-image: url('./images/embryo.jpg');
+  background-image: url('../images/embryo.jpg');
+
 }
 
 .fade-path {
@@ -124,5 +129,29 @@ body{
 }
 
 .product-card:hover {
-  border: #ddd solid thick !important;
+  /* border: #ddd solid thick !important; */
+  background-color: #dddddd !important;
+}
+
+input{
+  font-size: 1.8em !important;
+}
+
+#submit {
+  background-color: #00f;
+  color: #fff;
+}
+
+.disabled {
+  background-color: #99f !important;
+  color: #eee !important;
+  cursor: not-allowed !important;
+}
+
+input:focus{
+    outline: none !important;
+}
+
+*:focus {
+    outline: none !important;
 }

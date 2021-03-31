@@ -22,18 +22,18 @@
     <main>
       <div class="container-fluid full-width">
 
-        <div class="section row" id="first" style="background-image: url('./images/embryo.jpg')">
+        <div class="section row" id="first"">
           <div class="col-sm-6 center pad">
             <h1>Donate to help us have a baby through IVF</h1>
             <h2>The costs of IVF(invitro fertilization) suck</h2>
           </div>
           <div class="col-sm-6 center pad path picture"></div>
         </div>
-
-        <div class="section squeeze embryo picture">
+      <div class="embryo picture">
+        <div class="section squeeze picture">
           <div class="row">
             <div class="col-12">
-              <h2>Select which</h2>
+              <h2>Select a picture to purchase.  If you do not want a picture, select the donation option.</h2>
             </div>
           </div>
           <div class="row" id="pictures"></div>
@@ -42,13 +42,15 @@
 
         <div class="section row center" style="padding: 40px">
           <div class="col-8 center white">
-            <div class="input-group">
-              <span class="input-group-text">DONATION</span>
-              <input type="text" aria-label="Donate" class="form-control" id="donation">
+            <div class="input-group input-group-lg">
+              <span class="input-group-text" style="color:#555">DONATION</span>
+              <input type="text" placeholder="$" aria-label="Donate" class="form-control" id="donation" maxlength="7">
+              <button class="btn btn-outline-secondary disabled" type="button" disabled="true" id="submit">Buy</button>
             </div>
           </div>
           <div class="col-4 center white">
-            <button id="submit">Buy</button>
+            <!-- <button disabled="true" id="submit">Buy</button> -->
+            <!-- <button disabled id="submit">Buy</button> -->
           </div>
         </div>
 
@@ -56,7 +58,7 @@
         <div class="section row center" style="">
           <div id="error-message"></div>
         </div>
-
+      </div>
       </div>
     </main>
 

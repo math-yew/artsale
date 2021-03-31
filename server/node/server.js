@@ -21,7 +21,7 @@ let products = [
     images: ['https://live.staticflickr.com/8089/8476612001_60b11a5c0a_b.jpg']
   },
   {
-    name: 'Donation',
+    name: 'Donation Only',
     description: 'A donation without buying a picture'
   }
 ];

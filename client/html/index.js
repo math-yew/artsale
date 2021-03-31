@@ -1,5 +1,10 @@
 var productId;
 var donation;
+var maxAmount = 30000;
+var amountReady = false;
+var productReady = false;
+
+console.log("started")
 
 fetch('/config')
   .then(function (result) {
@@ -16,40 +21,38 @@ $("donation").blur(()=>console.log("asdf"));
 $(document).ready(function() {
   let donValue = $("#donation");
    donValue.focusout(()=>{
-     let value = formatCurrency();
-     let amount = value*1;
-     if(!isNaN(amount)){
-       let number = amount.toFixed(2);
-       $("#donation").val(number);
-       donation = number;
-      }
-     console.log("amount: " + amount);
+     currency()
    });
   donValue.keyup(()=>{
-    let valueStr = formatCurrency()+"";
+    currency()
+  });
+  function currency(){
+    let valueStr = stripCurrency()+"";
+    let amount = valueStr*1;
+    donation = (!isNaN(amount)) ? amount : donation;
+    donation = (donation > maxAmount) ? 0 : donation;
+    let newValue = formatCurrency(valueStr);
+    donValue.val(newValue);
+    checkStatus();
+  }
+  function formatCurrency(valueStr){
     valueReverse = valueStr.split("").reverse();
     let tempArr = [];
     let count = 0;
     for(var i=0; i<valueReverse.length; i++){
       let char = valueReverse[i];
       count++;
-      if(char == "."){
-        count = 0;
-        if (i>2){
-          tempArr = [valueReverse[i-2],valueReverse[i-1]];
-        }
-      }
       if(count > 3 && (i < valueReverse.length)){
         tempArr.push(",");
         count = 1;
       }
       tempArr.push(char);
     }
-    let newValue = tempArr.reverse().join("");
-    donValue.val(newValue);
-  });
-  function formatCurrency() {
-    var value = donValue.val().replace(/[^\d\.]/g,"");
+    tempArr.push("$");
+    return tempArr.reverse().join("");
+  }
+  function stripCurrency() {
+    var value = donValue.val().replace(/[^\d]/g,"");
     value = value.replace(/\./,"mm");
     let valueArr = value.split("mm");
     return valueArr.map((e)=>e.replace(".","")).join(".");
@@ -94,6 +97,7 @@ function selected(e,index){
   $("#"+e.id).css({"background-color":"#efe","border":"thick solid #0f0"});
   let buttonName = (index == 3) ? "Donate" : "Buy";
   $("#submit").html(buttonName);
+  checkStatus();
 }
 
 function populate(){
@@ -107,7 +111,7 @@ function populate(){
     let index = i;
     console.log("image: " + image);
     var picture = `<div class="col-sm-4">
-      <div class="center product-card container" onclick="selected(this,${index})" id="product_${index}">
+      <div class="center white-back product-card container" onclick="selected(this,${index})" id="product_${index}">
         <h1>${name}</h1>
         <h4>${description}</h4>
         <div class="pasha-image">
@@ -118,10 +122,24 @@ function populate(){
     $("#pictures").append(picture);
   }
   var noPic = `<div class="col-sm-12">
-    <div class="center product-card container" onclick="selected(this,3)" style="padding:5px" id="product_3">
+    <div class="center white-back product-card container" onclick="selected(this,3)" style="padding:5px" id="product_3">
       <h1>Donation</h1>
       <h4>A donation without buying a picture</h4>
     </div>
   </div>`;
   $("#noPic").append(noPic);
+}
+
+function checkStatus(){
+  console.log("checkStatus")
+  amountReady = (donation > 0 && donation <= maxAmount) ? true : false;
+  productReady = (productId > -1 && productId < config.products.length) ? true :false;
+  console.log(amountReady + " : " + productReady);
+  if(amountReady && productReady) {
+    $("#submit").prop("disabled",false).removeClass("disabled");
+    // $("#submit");
+  }else {
+    $("#submit").prop("disabled",true).addClass("disabled");;
+  }
+  console.log("disabled?: " + $("#submit").prop("disabled"));
 }
