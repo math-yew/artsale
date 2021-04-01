@@ -21,8 +21,9 @@ body{
   color: white;
 }
 
-.white-back {
-  background-color: white;
+.card-back {
+  background-color: #eee;
+  box-shadow: 1px 1px 15px #8c8c95;
 }
 
 .section {
@@ -72,7 +73,7 @@ body{
 }
 
 .squeeze {
-  padding:5vw 15vw;
+  padding:10vw 10vw;
 }
 
 .mountain {
@@ -91,7 +92,10 @@ body{
 
 .embryo {
   background-image: url('../images/embryo.jpg');
+}
 
+.us {
+  background-image: url('../images/us.jpg');
 }
 
 .fade-path {
@@ -130,7 +134,7 @@ body{
 
 .product-card:hover {
   /* border: #ddd solid thick !important; */
-  background-color: #dddddd !important;
+  background-color: #ffffff !important;
 }
 
 input{
@@ -154,4 +158,14 @@ input:focus{
 
 *:focus {
     outline: none !important;
+}
+
+.gradient {
+  background: rgb(239,243,255);
+background: radial-gradient(circle, rgba(239,243,255,1) 0%, rgba(211,222,246,1) 56%, rgba(190,190,190,1) 100%);
+}
+
+.input-group-text {
+  background-color: #767676;
+  color:#ffffff !important;
 }

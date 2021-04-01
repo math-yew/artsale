@@ -27,37 +27,37 @@
             <h1>Donate to help us have a baby through IVF</h1>
             <h2>The costs of IVF(invitro fertilization) suck</h2>
           </div>
-          <div class="col-sm-6 center pad path picture"></div>
+          <div class="col-sm-6 center">
+            <div class="center us picture" style="width:85%;height:85%;"></div>
+          </div>
         </div>
-      <div class="embryo picture">
-        <div class="section squeeze picture">
+      <div class="gradient">
+        <div class="section squeeze">
           <div class="row">
             <div class="col-12">
-              <h2>Select a picture to purchase.  If you do not want a picture, select the donation option.</h2>
+              <h2><span style="color:#2e95ff">Select a picture to purchase.</span>
+                <br/>
+                <span style="font-size:.8em">If you do not want a picture, select the 'Donation Only' option.</span></h2>
+              <br/>
+              <br/>
             </div>
           </div>
           <div class="row" id="pictures"></div>
-          <div class="row" style="margin-top:10px" id="noPic"></div>
+          <div class="row" style="margin-top:10px;padding-top:calc(var(--bs-gutter-x)/ 2)" id="noPic"></div>
         </div>
 
-        <div class="section row center" style="padding: 40px">
-          <div class="col-8 center white">
+        <div class="section row center">
+          <div class="col-10 center white" style="padding-bottom:40px;">
             <div class="input-group input-group-lg">
               <span class="input-group-text" style="color:#555">DONATION</span>
-              <input type="text" placeholder="$" aria-label="Donate" class="form-control" id="donation" maxlength="7">
+              <input type="text" placeholder="$" aria-label="Donate" class="form-control" style="height:auto; " id="donation" maxlength="7">
+              <br/>
               <button class="btn btn-outline-secondary disabled" type="button" disabled="true" id="submit">Buy</button>
+              <p style="color:#f00;" id="error-message"></p>
             </div>
-          </div>
-          <div class="col-4 center white">
-            <!-- <button disabled="true" id="submit">Buy</button> -->
-            <!-- <button disabled id="submit">Buy</button> -->
           </div>
         </div>
 
-        <!-- <div class="section row center" style="padding-bottom:100vh"> -->
-        <div class="section row center" style="">
-          <div id="error-message"></div>
-        </div>
       </div>
       </div>
     </main>

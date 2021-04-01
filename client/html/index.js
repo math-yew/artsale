@@ -1,5 +1,6 @@
 var productId;
 var donation;
+var minAmount = 20;
 var maxAmount = 30000;
 var amountReady = false;
 var productReady = false;
@@ -27,10 +28,10 @@ $(document).ready(function() {
     currency()
   });
   function currency(){
-    let valueStr = stripCurrency()+"";
+    let valueStr = stripCurrency(donValue)+"";
     let amount = valueStr*1;
     donation = (!isNaN(amount)) ? amount : donation;
-    donation = (donation > maxAmount) ? 0 : donation;
+    // donation = (donation > maxAmount) ? 0 : donation;
     let newValue = formatCurrency(valueStr);
     donValue.val(newValue);
     checkStatus();
@@ -51,17 +52,18 @@ $(document).ready(function() {
     tempArr.push("$");
     return tempArr.reverse().join("");
   }
-  function stripCurrency() {
-    var value = donValue.val().replace(/[^\d]/g,"");
-    value = value.replace(/\./,"mm");
-    let valueArr = value.split("mm");
-    return valueArr.map((e)=>e.replace(".","")).join(".");
-  }
 });
+function stripCurrency(donValue) {
+  var value = donValue.val().replace(/[^\d]/g,"");
+  value = value.replace(/\./,"mm");
+  let valueArr = value.split("mm");
+  return valueArr.map((e)=>e.replace(".","")).join(".");
+}
 
 var submitBtn = document.querySelector('#submit');
 submitBtn.addEventListener('click', function (evt) {
-  var donation = document.getElementById('donation').value;
+  let donValue = $("#donation");
+  var donation = stripCurrency(donValue);
   console.log("donation: " + donation);
   var amount = parseInt(donation*100);
   console.log("amount: " + amount);
@@ -93,8 +95,10 @@ submitBtn.addEventListener('click', function (evt) {
 
 function selected(e,index){
   productId = index;
-  $(".product-card").css({"background-color":"#fff","border":"thin solid #ccc"});
-  $("#"+e.id).css({"background-color":"#efe","border":"thick solid #0f0"});
+  $(".product-card").css({"background-color":"#ddd","border":"none"});
+  $(".product-card h1").css("color","#2e95ff");
+  $("#"+e.id).css({"background-color":"#fff","border":"thick solid #0f0","color":"#0f0"});
+  $("#"+e.id + " h1").css("color","#0f0");
   let buttonName = (index == 3) ? "Donate" : "Buy";
   $("#submit").html(buttonName);
   checkStatus();
@@ -111,19 +115,19 @@ function populate(){
     let index = i;
     console.log("image: " + image);
     var picture = `<div class="col-sm-4">
-      <div class="center white-back product-card container" onclick="selected(this,${index})" id="product_${index}">
+      <div class="center card-back product-card container" onclick="selected(this,${index})" id="product_${index}">
         <h1>${name}</h1>
         <h4>${description}</h4>
         <div class="pasha-image">
-          <img src="${image}" width="140" height="160"/>
+          <img src="${image}" width="95%" height="95%"/>
         </div>
       </div>
     </div>`;
     $("#pictures").append(picture);
   }
   var noPic = `<div class="col-sm-12">
-    <div class="center white-back product-card container" onclick="selected(this,3)" style="padding:5px" id="product_3">
-      <h1>Donation</h1>
+    <div class="center card-back product-card container" onclick="selected(this,3)" style="padding:5px" id="product_3">
+      <h1>Donation Only</h1>
       <h4>A donation without buying a picture</h4>
     </div>
   </div>`;
@@ -132,14 +136,29 @@ function populate(){
 
 function checkStatus(){
   console.log("checkStatus")
-  amountReady = (donation > 0 && donation <= maxAmount) ? true : false;
+  let min = (productId == 3) ? 1 : minAmount;
+  amountReady = (donation >= min && donation <= maxAmount) ? true : false;
   productReady = (productId > -1 && productId < config.products.length) ? true :false;
   console.log(amountReady + " : " + productReady);
+
   if(amountReady && productReady) {
     $("#submit").prop("disabled",false).removeClass("disabled");
-    // $("#submit");
   }else {
     $("#submit").prop("disabled",true).addClass("disabled");;
   }
-  console.log("disabled?: " + $("#submit").prop("disabled"));
+
+  let message="";
+  if(donation > maxAmount){
+    message = "Choose a number less than $" + maxAmount;
+  }
+  if(donation < minAmount && productId < 3){
+    message = "Because of shipping costs, we require a minimum of $" + minAmount + " for buying the art print. But smaller amounts are great if you select the 'Donation Only' option.";
+  }
+  console.log("donation < minAmount && productId < 3");
+  console.log(donation +"<"+ minAmount);
+  console.log(donation < minAmount);
+  console.log(productId < 3);
+  console.log("message: " + message);
+
+  $("#error-message").text(message);
 }
