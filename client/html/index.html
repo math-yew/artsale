@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="generator" content="Hugo 0.79.0">
-    <title class="changeable">Small Site</title>
+    <title class="changeable">IVF Fundraiser - Matt and Jenn</title>
 
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="css/normalize.css" />
@@ -23,9 +23,14 @@
       <div class="container-fluid full-width">
 
         <div class="section row" id="first"">
-          <div class="col-sm-6 center pad">
-            <h1>Donate to help us have a baby through IVF</h1>
-            <h2>The costs of IVF(invitro fertilization) suck</h2>
+          <div class="col-sm-6 pad">
+            <h1>HELP US HAVE A BABY</h1>
+            <h2>Buying our art will help fund our IVF costs</h2>
+            <br/>
+            <h4>We are Matt and Jenn Mecham. Due to our infertility, we are seeking to have a baby via invitro (IVF).</h4>
+            <br/>
+            <h4>Because it is so expensive, we are selling art prints to fund our IVF procedures. These art prints are from artworks that Matt has made.</h4>
+            <h4></h4>
           </div>
           <div class="col-sm-6 center">
             <div class="center us picture" style="width:85%;height:85%;"></div>
@@ -35,9 +40,8 @@
         <div class="section squeeze">
           <div class="row">
             <div class="col-12">
-              <h2><span style="color:#2e95ff">Select a picture to purchase.</span>
-                <br/>
-                <span style="font-size:.8em">If you do not want a picture, select the 'Donation Only' option.</span></h2>
+              <h1>Select a picture to purchase. Choose your price.</h1>
+              <h2>If you do not want a picture, select the 'Donation Only' option.</h2>
               <br/>
               <br/>
             </div>
@@ -46,18 +50,19 @@
           <div class="row" style="margin-top:10px;padding-top:calc(var(--bs-gutter-x)/ 2)" id="noPic"></div>
         </div>
 
+
+
+
         <div class="section row center">
           <div class="col-10 center white" style="padding-bottom:40px;">
             <div class="input-group input-group-lg">
               <span class="input-group-text" style="color:#555">DONATION</span>
-              <input type="text" placeholder="$" aria-label="Donate" class="form-control" style="height:auto; " id="donation" maxlength="7">
-              <br/>
-              <button class="btn btn-outline-secondary disabled" type="button" disabled="true" id="submit">Buy</button>
-              <p style="color:#f00;" id="error-message"></p>
+              <input type="text" placeholder="$" aria-label="Donate" class="form-control" style="height:auto;" id="donation" maxlength="7">
+              <button class="btn btn-outline-secondary not-ready" type="button" title="Not ready" id="submit">Buy</button>
             </div>
+            <p style="color:#f00;" id="error-message"></p>
           </div>
         </div>
-
       </div>
       </div>
     </main>

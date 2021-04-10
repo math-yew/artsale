@@ -146,10 +146,16 @@ input{
   color: #fff;
 }
 
-.disabled {
+.not-ready {
   background-color: #99f !important;
   color: #eee !important;
-  cursor: not-allowed !important;
+  /* cursor: not-allowed !important; */
+}
+
+.not-ready:hover {
+  background-color: #bbb !important;
+  color: #eee !important;
+  /* cursor: not-allowed !important; */
 }
 
 input:focus{

@@ -6,9 +6,9 @@ require('dotenv').config({ path: './.env' });
 
 let products = [
   {
-    name: 'Donuts',
+    name: 'Carried',
     description: '8x10 print',
-    images: ['https://live.staticflickr.com/8833/18321553171_cebf177a96_b.jpg']
+    images: ['./images/carried.jpg']
   },
   {
     name: 'City',
