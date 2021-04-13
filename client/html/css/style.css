@@ -24,6 +24,7 @@ body{
 .card-back {
   background-color: #eee;
   box-shadow: 1px 1px 15px #8c8c95;
+  margin: 10px 0px;
 }
 
 .section {
@@ -81,7 +82,7 @@ body{
 }
 
 .picture {
-  background-position: left;
+  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -174,4 +175,27 @@ background: radial-gradient(circle, rgba(239,243,255,1) 0%, rgba(211,222,246,1) 
 .input-group-text {
   background-color: #767676;
   color:#ffffff !important;
+}
+
+.desktop {
+  display: block;
+}
+
+.mobile {
+  display: none;
+}
+
+@media only screen and (max-width: 575px) {
+
+  .desktop {
+    display: none;
+  }
+
+  .mobile {
+    display: block;
+  }
+
+  .input-group {
+    font-size: .5em;
+  }
 }

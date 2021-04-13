@@ -129,7 +129,7 @@ function populate(){
     $("#pictures").append(picture);
   }
   var noPic = `<div class="col-sm-12">
-    <div class="center card-back product-card container" onclick="selected(this,3)" style="padding:5px" id="product_3">
+    <div class="center card-back product-card container" onclick="selected(this,3)" style="padding:30px" id="product_3">
       <h1>Donation Only</h1>
       <h4>A donation without buying a picture</h4>
     </div>

@@ -8,7 +8,7 @@ let products = [
   {
     name: 'Carried',
     description: '8x10 print',
-    images: ['./images/carried.jpg']
+    images: ['http://143.110.155.189:4242/images/carried.jpg']
   },
   {
     name: 'City',
