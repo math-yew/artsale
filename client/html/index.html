@@ -45,13 +45,12 @@
       <div class="gradient">
         <div class="section squeeze">
           <div class="row">
-            <div class="col-12">
-              <h1>Select a picture to purchase. Choose your price.</h1>
-              <h3>If you do not want a picture, select the 'Donation Only' option.</h3>
-              <br/>
-              <br/>
+            <div class="col-12" id="instructions">
+              <h1>First, select a picture.</h1>
             </div>
           </div>
+          <br/>
+          <br/>
           <div class="row" id="pictures"></div>
           <div class="row" style="margin-top:10px;padding-top:calc(var(--bs-gutter-x)/ 2)" id="noPic"></div>
         </div>
@@ -59,7 +58,10 @@
 
 
 
-        <div class="section row center">
+        <div class="section row center" style="display:none;" id="donationDiv">
+          <div class="col-10 white" style="">
+            <h2>Enter your donation amount:</h2>
+          </div>
           <div class="col-10 center white" style="padding-bottom:40px;">
             <div class="input-group input-group-lg">
               <span class="input-group-text" style="color:#555">DONATION</span>

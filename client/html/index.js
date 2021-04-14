@@ -4,6 +4,7 @@ var minAmount = 20;
 var maxAmount = 30000;
 var amountReady = false;
 var productReady = false;
+var showAmount = false;
 
 fetch('/config')
   .then(function (result) {
@@ -104,9 +105,38 @@ function selected(e,index){
   $(".product-card h1").css("color","#2e95ff");
   $("#"+e.id).css({"background-color":"#fff","border":"thick solid #0f0","color":"#0f0"});
   $("#"+e.id + " h1").css("color","#0f0");
-  let buttonName = (index == 3) ? "Donate" : "Buy";
-  $("#submit").html(buttonName);
+  $("#submit").html("Buy");
   checkStatus();
+}
+
+function donationOnly(){
+  console.log("donationOnly");
+  productId = (productId == 3) ? null : 3;
+  if(productId == 3) {
+    $("#pictures").removeClass("showPics");
+    setTimeout(()=>{
+      $("#pictures").addClass("noPics");
+    },10)
+    setTimeout(()=>{
+      $("#pictures").hide();
+    },1000)
+
+    $("#checked").show();
+    $("#check").hide();
+    $("#product_3").css("color","#0f0");
+    $("#submit").html("Donate");
+    checkStatus();
+  } else {
+    $("#pictures").removeClass("noPics");
+    setTimeout(()=>{
+      $("#pictures").addClass("showPics");
+      $("#pictures").show();
+    },10)
+
+    $("#submit").html("Buy");
+    $("#checked").hide();
+    $("#check").show();
+  }
 }
 
 function populate(){
@@ -129,12 +159,11 @@ function populate(){
     $("#pictures").append(picture);
   }
   var noPic = `<div class="col-sm-12">
-    <div class="center card-back product-card container" onclick="selected(this,3)" style="padding:30px" id="product_3">
-      <h1>Donation Only</h1>
-      <h4>A donation without buying a picture</h4>
+    <div class="donation-only" onclick="donationOnly()" id="product_3">
+      <h2><img src="./images/check.png" id="check"><img src="./images/checked.png" style="display:none" id="checked">  Donation Only</h2>
     </div>
   </div>`;
-  $("#noPic").append(noPic);
+  $("#instructions").append(noPic);
 }
 
 function checkStatus(submitClicked){
@@ -142,6 +171,11 @@ function checkStatus(submitClicked){
   amountReady = (donation >= min && donation <= maxAmount) ? true : false;
   productReady = (productId > -1 && productId < config.products.length) ? true :false;
   console.log(amountReady + " : " + productReady);
+
+  if(productReady && !showAmount){
+    nextStep();
+    showAmount = true;
+  }
 
   if(amountReady && productReady) {
     $("#submit").removeClass("not-ready").prop("title", "");
@@ -161,7 +195,11 @@ function checkStatus(submitClicked){
     message = "First select a product";
   }
 
-
-
   $("#error-message").text(message);
+}
+
+function nextStep() {
+  $("#donationDiv").addClass("fadeIn");
+  $("#donationDiv").show();
+  window.scrollTo(0,document.body.scrollHeight);
 }
