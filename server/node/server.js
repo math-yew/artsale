@@ -11,14 +11,14 @@ let products = [
     images: ['http://143.110.155.189:4242/images/carried.jpg']
   },
   {
-    name: 'City',
+    name: 'Mountains',
     description: '8x10 print',
-    images: ['https://live.staticflickr.com/8392/8602980365_75fed56177_b.jpg']
+    images: ['http://143.110.155.189:4242/images/mountains.jpg']
   },
   {
-    name: 'Pumpkins',
+    name: 'Triangles',
     description: '8x10 print',
-    images: ['https://live.staticflickr.com/8089/8476612001_60b11a5c0a_b.jpg']
+    images: ['http://143.110.155.189:4242/images/triangles.jpg']
   },
   {
     name: 'Donation Only',
