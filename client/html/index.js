@@ -16,8 +16,6 @@ fetch('/config')
     populate();
   });
 
-$("donation").blur(()=>console.log("asdf"));
-
 $(document).ready(function() {
   let donValue = $("#donation");
    donValue.focusout(()=>{
@@ -109,17 +107,18 @@ function selected(e,index){
   checkStatus();
 }
 
-function donationOnly(){
-  console.log("donationOnly");
+function donationOnly() {
+  $(".product-card").css({"background-color":"#ddd","border":"none"});
+  $(".product-card h1").css("color","#2e95ff");
   productId = (productId == 3) ? null : 3;
   if(productId == 3) {
     $("#pictures").removeClass("showPics");
     setTimeout(()=>{
       $("#pictures").addClass("noPics");
-    },10)
+    },10);
     setTimeout(()=>{
       $("#pictures").hide();
-    },1000)
+    },1000);
 
     $("#checked").show();
     $("#check").hide();
@@ -158,7 +157,7 @@ function populate(){
     </div>`;
     $("#pictures").append(picture);
   }
-  var noPic = `<div class="col-sm-12">
+  var noPic = `<div class="col-lg-4 col-md-6">
     <div class="donation-only" onclick="donationOnly()" id="product_3">
       <h2><img src="./images/check.png" id="check"><img src="./images/checked.png" style="display:none" id="checked">  Donation Only</h2>
     </div>
@@ -173,7 +172,9 @@ function checkStatus(submitClicked){
   console.log(amountReady + " : " + productReady);
 
   if(productReady && !showAmount){
-    nextStep();
+    $("#donation").val("");
+    let time = (productId == 3) ? 1000 : 10;
+    setTimeout(()=> nextStep(), time)
     showAmount = true;
   }
 
@@ -201,5 +202,7 @@ function checkStatus(submitClicked){
 function nextStep() {
   $("#donationDiv").addClass("fadeIn");
   $("#donationDiv").show();
+  $("#donationDiv h2").addClass("pulse");
+
   window.scrollTo(0,document.body.scrollHeight);
 }

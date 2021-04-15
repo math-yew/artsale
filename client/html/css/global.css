@@ -41,7 +41,7 @@ h1 {
 h4 {
   font-weight: 500;
   font-size: 14px;
-  color: var(--gray-light);
+  /* color: var(--gray-light); */
 }
 
 /* Layout */
