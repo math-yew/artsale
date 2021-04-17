@@ -8,21 +8,21 @@ let products = [
   {
     name: 'Carried',
     description: '8x10 print',
-    images: ['http://143.110.155.189:4242/images/carried.jpg']
+    images: ['http://143.110.155.189:80/images/carried.jpg']
   },
   {
     name: 'Mountains',
     description: '8x10 print',
-    images: ['http://143.110.155.189:4242/images/mountains.jpg']
+    images: ['http://143.110.155.189:80/images/mountains.jpg']
   },
   {
     name: 'Triangles',
     description: '8x10 print',
-    images: ['http://143.110.155.189:4242/images/triangles.jpg']
+    images: ['http://143.110.155.189:80/images/triangles.jpg']
   },
   {
-    name: 'Donation Only',
-    description: 'A donation without buying a picture'
+    name: 'Donation:',
+    description: 'No picture'
   }
 ];
 
@@ -64,7 +64,8 @@ app.get('/checkout-session', async (req, res) => {
 app.post('/create-checkout-session', async (req, res) => {
   const domainURL = process.env.DOMAIN;
   const { locale, amount, productId } = req.body;
-  const pmTypes = (process.env.PAYMENT_METHOD_TYPES || 'card').split(',').map((m) => m.trim());
+  const pmTypes = ('card').split(',').map((m) => m.trim());
+  // const pmTypes = (process.env.PAYMENT_METHOD_TYPES || 'card').split(',').map((m) => m.trim());
 
   let sessionData = {
     payment_method_types: pmTypes,
@@ -131,4 +132,4 @@ app.post('/webhook', async (req, res) => {
   res.sendStatus(200);
 });
 
-app.listen(4242, () => console.log(`Node server listening on port ${4242}!`));
+app.listen(80, () => console.log(`Node server listening on port ${80}!`));

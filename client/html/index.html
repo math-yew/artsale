@@ -60,11 +60,20 @@
 
         <div class="section row center" style="display:none;" id="donationDiv">
           <div class="col-10 white" style="">
-            <h1>Name your price:</h1>
+            <h1>Choose your donation amount:</h1>
           </div>
           <div class="col-10 center white" style="padding-bottom:40px;">
-            <div class="input-group">
-              <span class="input-group-text" style="color:#555">Donation:</span>
+            <div class="input-group input-group-addon">
+<!--
+              <span class="input-group-text input-group-addon" style="color:#555" id="purchaseTypeX">
+                <p>first</p><br/>
+                <p>second</p>
+              </span>
+               -->
+              <span class="input-group-text"><ul style="list-style-type:none;margin:0px;padding:0px;">
+                <li style="font-weight:bold" id="productName"></li>
+                <li style="font-size:.8em" id="productDesc"></li>
+              </ul></span>
               <input type="text" placeholder="$" aria-label="Donate" class="form-control" style="height:auto;" id="donation" maxlength="7">
               <button class="btn btn-outline-secondary not-ready" type="button" title="Not ready" id="submit">BUY</button>
             </div>

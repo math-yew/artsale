@@ -246,6 +246,10 @@ background: radial-gradient(circle, rgba(239,243,255,1) 0%, rgba(211,222,246,1) 
 
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 .desktop {
   display: block;
 }
