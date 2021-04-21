@@ -8,7 +8,7 @@ let products = [
   {
     name: 'Carried',
     description: '8x10 print',
-    images: ['http://143.110.155.189:80/images/carried.jpg']
+    images: ['http://143.110.155.189:4242/images/carried.jpg']
   },
   {
     name: 'Mountains',
@@ -132,4 +132,4 @@ app.post('/webhook', async (req, res) => {
   res.sendStatus(200);
 });
 
-app.listen(80, () => console.log(`Node server listening on port ${80}!`));
+app.listen(4242, () => console.log(`Node server listening on port ${4242}!`));
