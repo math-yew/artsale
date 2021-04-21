@@ -8,17 +8,17 @@ let products = [
   {
     name: 'Carried',
     description: '8x10 print',
-    images: ['http://143.110.155.189:4242/images/carried.jpg']
+    images: ['https://ivf.matthewmecham.com/images/carried.jpg']
   },
   {
     name: 'Mountains',
     description: '8x10 print',
-    images: ['http://143.110.155.189:80/images/mountains.jpg']
+    images: ['https://ivf.matthewmecham.com/images/mountains.jpg']
   },
   {
     name: 'Triangles',
     description: '8x10 print',
-    images: ['http://143.110.155.189:80/images/triangles.jpg']
+    images: ['https://ivf.matthewmecham.com/images/triangles.jpg']
   },
   {
     name: 'Donation:',
