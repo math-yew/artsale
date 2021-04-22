@@ -11,14 +11,19 @@ let products = [
     images: ['https://ivf.matthewmecham.com/images/carried.jpg']
   },
   {
+    name: 'Triangles',
+    description: '8x10 print',
+    images: ['https://ivf.matthewmecham.com/images/triangles.jpg']
+  },
+  {
     name: 'Mountains',
     description: '8x10 print',
     images: ['https://ivf.matthewmecham.com/images/mountains.jpg']
   },
   {
-    name: 'Triangles',
+    name: 'Explosion',
     description: '8x10 print',
-    images: ['https://ivf.matthewmecham.com/images/triangles.jpg']
+    images: ['https://ivf.matthewmecham.com/images/explosion.jpg']
   },
   {
     name: 'Donation:',

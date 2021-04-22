@@ -5,6 +5,7 @@ var maxAmount = 30000;
 var amountReady = false;
 var productReady = false;
 var showAmount = false;
+var donIndex = 4;
 
 fetch('/config')
   .then(function (result) {
@@ -110,8 +111,8 @@ function selected(e,index){
 function donationOnly() {
   $(".product-card").css({"background-color":"#ddd","border":"none"});
   $(".product-card h1").css("color","#2e95ff");
-  productId = (productId == 3) ? null : 3;
-  if(productId == 3) {
+  productId = (productId == donIndex) ? null : donIndex;
+  if(productId == donIndex) {
     $("#pictures").removeClass("showPics");
     setTimeout(()=>{
       $("#pictures").addClass("noPics");
@@ -122,7 +123,7 @@ function donationOnly() {
 
     $("#checked").show();
     $("#check").hide();
-    $("#product_3").css("color","#0f0");
+    $("#product_"+donIndex).css("color","#0f0");
     $("#submit").html("Donate");
   } else {
     $("#pictures").removeClass("noPics");
@@ -146,7 +147,7 @@ function populate(){
     let description = products[i].description;
     let image = products[i].images[0];
     let index = i;
-    var picture = `<div class="col-sm-4 pointer">
+    var picture = `<div class="col-sm-6 pointer">
       <div class="center card-back product-card container" onclick="selected(this,${index})" id="product_${index}">
         <h1>${name}</h1>
         <h4>${description}</h4>
@@ -158,7 +159,7 @@ function populate(){
     $("#pictures").append(picture);
   }
   var noPic = `<div class="col-lg-4 col-md-6 pointer">
-    <div class="donation-only" onclick="donationOnly()" id="product_3">
+    <div class="donation-only" onclick="donationOnly()" id="product_`+donIndex+`">
       <h2><img src="./images/check.png" id="check"><img src="./images/checked.png" style="display:none" id="checked">  Donation Only</h2>
     </div>
   </div>`;
@@ -166,7 +167,7 @@ function populate(){
 }
 
 function checkStatus(submitClicked){
-  let min = (productId == 3) ? 1 : minAmount;
+  let min = (productId == donIndex) ? 1 : minAmount;
   amountReady = (donation >= min && donation <= maxAmount) ? true : false;
   productReady = (productId > -1 && productId != null && productId < config.products.length) ? true :false;
   console.log(amountReady + " : " + productReady);
@@ -174,7 +175,7 @@ function checkStatus(submitClicked){
 
   if(productReady && !showAmount){
     $("#donation").val("");
-    let time = (productId == 3) ? 1000 : 10;
+    let time = (productId == donIndex) ? 1000 : 10;
     setTimeout(()=> nextStep(), time)
     showAmount = true;
   }
@@ -196,7 +197,7 @@ function checkStatus(submitClicked){
     let formattedMaxAmount = formatCurrency(maxAmount).toString();
     message = "Choose a number less than " + formattedMaxAmount;
   }
-  if(donation > 0 && donation < minAmount && productId < 3){
+  if(donation > 0 && donation < minAmount && productId < donIndex){
     message = "Because of shipping costs, we require a minimum of $" + minAmount + " for buying the art print. But smaller amounts are great if you select the 'Donation Only' option.";
   }
   $("#error-message").text(message);
